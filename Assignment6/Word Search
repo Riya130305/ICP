@@ -1,0 +1,51 @@
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int n=board.length;
+        int m=board[0].length;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(word.charAt(0)==board[i][j])
+                {
+                    boolean found =dfs(board,word,i,j, 0);
+                    if(found==true)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean dfs(char[][]board,String word,int r,int c,int wordInd)
+    {
+        if(wordInd==word.length())
+        {
+            return true;
+        }
+        // Base case(Boundary cases)
+        int n=board.length;
+        int m=board[0].length;
+        if(r<0 || c<0 ||r>=n ||c>=m)
+        {
+            return false;
+        }
+        // invalid path
+        if(board[r][c]!=word.charAt(wordInd) || board[r][c]==' ')
+        {
+            return false;
+        }
+        // Mark visited
+        char ch=board[r][c];
+        board[r][c]=' ';
+        if(dfs(board,word,r-1,c, wordInd+1) || dfs(board,word,r,c+1, wordInd+1) || dfs(board,word,r+1,c, wordInd+1) || dfs(board,word,r,c-1, wordInd+1))
+        {
+            return true;
+        }
+        // Backtrack
+        board[r][c]=ch;
+        return false;
+
+    }
+}
