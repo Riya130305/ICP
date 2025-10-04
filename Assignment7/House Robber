@@ -1,0 +1,23 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n=nums.length;
+        int M[] = new int[n];
+        if(M.length==0)
+        {
+            return nums[0];
+        } 
+        if(M.length==1)
+        {
+            int a=Math.max(nums[1],nums[0]);
+            return a;
+        }
+        M[0]=nums[0];
+        M[1]=Math.max(nums[1],nums[0]);
+
+        for(int i=2;i<n;i++)
+        {
+            M[i]=Math.max(M[i-2]+nums[i],M[i-1]);
+        }
+        return M[n-1];
+    }
+}
